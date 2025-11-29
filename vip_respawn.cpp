@@ -49,7 +49,7 @@ bool OnRespawnCommand(int iSlot, const char* szContent)
 {
 	if(g_pVIPCore->VIP_IsClientVIP(iSlot))
 	{
-		int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "RespawnEnhanced");
+		int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "Respawn");
 		if(iCount > 0)
 		{
             if(g_pRespawnTimers[iSlot] == nullptr && !g_isActive[iSlot])
@@ -211,7 +211,7 @@ void OnPlayerDeath(const char* sName, IGameEvent* event, bool bDontBroadcast)
 			return;
 		}
 		
-		int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "RespawnEnhanced");
+		int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "Respawn");
 		
 		if(iCount <= 0)
 		{
@@ -331,7 +331,7 @@ void VIP_OnVIPLoaded()
 
 std::string OnDisplay(int iSlot, const char* szFeature)
 {
-	int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "RespawnEnhanced");
+	int iCount = g_pVIPCore->VIP_GetClientFeatureInt(iSlot, "Respawn");
 	char szDisplay[128];
 	g_SMAPI->Format(szDisplay, sizeof(szDisplay), "%s [%i]", g_pVIPCore->VIP_GetTranslate(szFeature), iCount - g_iRespawns[iSlot]);
 	return std::string(szDisplay);
@@ -374,7 +374,7 @@ void vip_respawn::AllPluginsLoaded()
 		return;
 	}
 	g_pVIPCore->VIP_OnVIPLoaded(VIP_OnVIPLoaded);
-	g_pVIPCore->VIP_RegisterFeature("RespawnEnhanced", VIP_INT, SELECTABLE, OnSelect, nullptr, OnDisplay);
+	g_pVIPCore->VIP_RegisterFeature("Respawn", VIP_INT, SELECTABLE, OnSelect, nullptr, OnDisplay);
 	g_pVIPCore->VIP_RegisterFeature("AutoRespawn", VIP_BOOL, TOGGLABLE);
 	g_pVIPCore->VIP_RegisterFeature("NoRespawnDelay", VIP_FLOAT, HIDE);
 	g_pVIPCore->VIP_RegisterFeature("NoAutoRespawnDelay", VIP_FLOAT, HIDE);
